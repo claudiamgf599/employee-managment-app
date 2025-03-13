@@ -1,4 +1,5 @@
 <div class="align">
+
     <div class="grid">
 
         <form action="https://httpbin.org/post" method="POST" class="form login" (ngSubmit)="onLogin()">
@@ -25,10 +26,9 @@
 
         </form>
 
-        <p class="text--center">Not a member? <a href="#">Sign up now</a> <svg class="icon">
-                <use xlink:href="#icon-arrow-right"></use>
-            </svg></p>
-
+    </div>
+    <div class="grid">
+        <app-progress-bar [progressValue]="progressValue"></app-progress-bar>
     </div>
 
     <svg xmlns="http://www.w3.org/2000/svg" class="icons">
