@@ -1,6 +1,6 @@
 <div class="">
     <div class="row">
-        <div class="col-7">
+        <div [class]="isSidePanelOpen() ? 'col-7' : 'col-12'">
             <div class="card">
                 <div class="card-header bg-secondary">
                     <div class="row">
@@ -8,7 +8,7 @@
                             <strong>Employee Portal</strong>
                         </div>
                         <div class="col-6 text-end">
-                            <button class="btn btn-warning">Add New</button>
+                            <button class="btn btn-warning" (click)="addNew()">Add New</button>
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,8 @@
                                     <td>{{item.deptId}}</td>
                                     <td>
                                         <button class="btn btn-success btn-sm" (click)="onEdit(item)">Edit</button>
-                                        <button class="btn btn-danger btn-sm" (click)="onDelete(item.employeeId)">Delete</button>
+                                        <button class="btn btn-danger btn-sm"
+                                            (click)="onDelete(item.employeeId)">Delete</button>
                                     </td>
                                 </tr>
                                 }
@@ -45,6 +46,7 @@
                 </div>
             </div>
         </div>
+        @if (isSidePanelOpen()) {
         <div class="col-5">
             <div class="card">
                 <div class="card-header bg-secondary">
@@ -53,7 +55,7 @@
                             <strong>New Employee</strong>
                         </div>
                         <div class="col-6 text-end">
-                            <button class="btn btn-primary">Close</button>
+                            <button class="btn btn-primary" (click)="close()">Close</button>
                         </div>
                     </div>
                 </div>
@@ -86,7 +88,8 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="deptParentId" class="form-label">Parent Department</label>
-                                <select class="form-select" id="deptParentId" name="deptParentId" [(ngModel)]="deptId" (change)="onDeptChange()">
+                                <select class="form-select" id="deptParentId" name="deptParentId" [(ngModel)]="deptId"
+                                    (change)="onDeptChange()">
                                     <option selected>Select Department</option>
                                     @for (item of parenDeptList; track $index) {
                                     <option [value]="item.departmentId">{{item.departmentId}}</option>
@@ -112,13 +115,14 @@
                             </div>
                         </div>
                         @if (employeeObj.employeeId == 0) {
-                            <button type="button" class="btn btn-warning mt-3" (click)="onSaveEmployee()">Submit</button>
+                        <button type="button" class="btn btn-warning mt-3" (click)="onSaveEmployee()">Submit</button>
                         } @else {
-                            <button type="button" class="btn btn-primary mt-3" (click)="onUpdateEmployee()">Update</button>
+                        <button type="button" class="btn btn-primary mt-3" (click)="onUpdateEmployee()">Update</button>
                         }
                     </form>
                 </div>
             </div>
         </div>
+        }
     </div>
 </div>

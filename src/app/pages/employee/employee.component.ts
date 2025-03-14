@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { MasterService } from '../../services/master.service';
 import { IApiResponse } from '../../model/IApiResponse';
 import { IParentDept } from '../../model/IParentDept';
@@ -26,9 +26,19 @@ export class EmployeeComponent implements OnInit {
   masterService = inject(MasterService);
   employeeService = inject(EmployeeService);
 
+  isSidePanelOpen = signal<boolean>(false);
+
   ngOnInit(): void {
     this.getParentDeptList();
     this.getEmployees();
+  }
+
+  addNew() {
+    this.isSidePanelOpen.set(true)
+  }
+
+  close() {
+    this.isSidePanelOpen.set(false)
   }
 
   getEmployees() {
