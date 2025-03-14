@@ -1,1 +1,106 @@
-<p>project works!</p>
+<div class="row">
+    <div class="col-12" *ngIf="currentView === 'list'">
+        <div class="card">
+            <div class="card-header bg-secondary">
+                <div class="row">
+                    <div class="col-6 text-white">
+                        <strong>Project List</strong>
+                    </div>
+                    <div class="col-6 text-end">
+                        <button class="btn btn-primary" (click)="currentView = 'Create'">Create New Project</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Project ID</th>
+                            <th>Project Name</th>
+                            <th>Client Name</th>
+                            <th>Start Date</th>
+                            <th>Lead By Employee</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let project of projectList; let sr=index">
+                            <td>{{sr + 1}}</td>
+                            <td>{{project.projectName}}</td>
+                            <td>{{project.clientName}}</td>
+                            <td>{{project.startDate | date:'dd-MMM-yy'}}</td>
+                            <td>{{project.employeeName}}</td>
+                            <td>
+                                <button class="btn btn-success btn-sm">Edit</button>
+                                <button class="btn btn-danger btn-sm">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-12" *ngIf="currentView !== 'list'">
+        <div class="card">
+            <div class="card-header bg-secondary">
+                <div class="row">
+                    <div class="col-6 text-white">
+                        <strong>New Project</strong>
+                    </div>
+                    <div class="col-6 text-end">
+                        <button class="btn btn-primary" (click)="currentView = 'list'">Close</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <form class="mb-4" [formGroup]="projectForm" (ngSubmit)="onSaveProject()">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="projectName" class="form-label">Project Name</label>
+                            <input type="text" formControlName="projectName" class="form-control" id="projectName"
+                                placeholder="Enter project name">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="clientName" class="form-label">Client Name</label>
+                            <input type="text" formControlName="clientName" class="form-control" id="clientName"
+                                placeholder="Enter client name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="startDate" class="form-label">Start Date</label>
+                            <input type="date" formControlName="startDate" class="form-control" id="startDate"
+                            placeholder="Enter start date">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="leadByEmpId" class="form-label">Lead By Employee ID</label>
+                            <select formControlName="leadByEmpId" class="form-control" id="leadByEmpId">
+                                <option value="">Select Employee</option>
+                                <option *ngFor="let emp of employeeData$ | async" [value]="emp.employeeId">{{emp.employeeName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="contactPerson" class="form-label">Contact Person</label>
+                            <input type="text" class="form-control" formControlName="contactPerson" id="contactPerson"
+                                placeholder="Enter contact person name">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="contactNo" class="form-label">Contact No</label>
+                            <input type="text" class="form-control" formControlName="contactNo" id="contactNo"
+                                placeholder="Enter Contact No">
+                        </div>                        
+                        <div class="col-md-6">
+                            <label for="emailId" class="form-label">Email Id</label>
+                            <input type="text" class="form-control" formControlName="emailId" id="emailId"
+                                placeholder="Enter email id">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-warning mt-3">Submit</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
