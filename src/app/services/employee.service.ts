@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Employee } from '../model/Employee';
 import { Project } from '../model/Project';
+import { ProjectEmployee } from '../model/ProjectEmployee';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,19 @@ export class EmployeeService {
     return this.http.post<Project>(`${this.apiUrl}CreateProject`, project);
   }
 
+  updateProject(project: Project) {
+    return this.http.put<Project>(this.apiUrl + "UpdateProject/" + project.projectId, project);
+  }
+
   getProjects(): Observable<Project[]> {
     return this.http.get<Project[]>(this.apiUrl + "GetAllProjects");
+  }
+
+  addNewProjectEmployee(projectEmployee: ProjectEmployee) {
+    return this.http.post<ProjectEmployee>(`${this.apiUrl}CreateProjectEmployee`, projectEmployee);
+  }
+
+  getProjectEmployee(idProject: number): Observable<ProjectEmployee[]> {
+    return this.http.get<ProjectEmployee[]>(this.apiUrl + "GetProjectEmployee/" + idProject); // El servicio dejó de responder
   }
 }
